@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Rank</title>
+</head>
+<body>
+  <h1>User Rank</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>UID</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Player_rank</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i = 0; i < users.length; i++) { %>
+        <tr>
+          <td><%= users[i].UID %></td>
+          <td><%= users[i].Name %></td>
+          <td><%= users[i].Score %></td>
+          <td><%= users[i].player_rank %></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

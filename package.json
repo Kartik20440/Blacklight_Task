@@ -1,0 +1,22 @@
+{
+  "name": "blacklight-task",
+  "version": "1.0.0",
+  "description": "creating APIs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "leaderboard",
+    "API",
+    "Node.js"
+  ],
+  "author": "Kartik Jain",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "moment": "^2.30.1",
+    "mysql2": "^3.7.1"
+  }
+}
