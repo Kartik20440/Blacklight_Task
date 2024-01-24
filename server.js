@@ -6,14 +6,6 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-// const db = mysql.createConnection({
-  //   host: "a0m.h.filess.io",
-  //   user: "BlacklistTask_timepiano",
-  //   password: "89328c7e6160f3c20e50ad2dafe00b45ea55aa3c",
-  //   database: "BlacklistTask_timepiano",
-  //   port: 3307,
-  // });
-
 const db = mysql.createConnection({
   host: "sql6.freesqldatabase.com",
   user: "sql6679494",
@@ -57,11 +49,11 @@ app.get('/leaderboard/current', (req, res) => {
 // Display last week leaderboard given a country by the user (Top 200)
 app.get('/leaderboard/last-week/:country', (req, res) => {
 const country = req.params.country;
-const startOfLastWeek = moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD HH:mm:ss');
-const endOfLastWeek = moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD HH:mm:ss');
+const firstDayLW = moment().subtract(1, 'weeks').startOf('week').format('YYYY-MM-DD HH:mm:ss');
+const lastDayLW = moment().subtract(1, 'weeks').endOf('week').format('YYYY-MM-DD HH:mm:ss');
 const query = `SELECT * FROM statistics WHERE country = ? AND timestamp BETWEEN ? AND ? ORDER BY score DESC LIMIT 200`;
 
-db.query(query, [country, startOfLastWeek, endOfLastWeek], (err, results) => {
+db.query(query, [country, firstDayLW, lastDayLW], (err, results) => {
     if (err){
     console.error('Error querying the database:', err);
     res.status(500).send('Internal Server Error');
