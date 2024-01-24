@@ -6,8 +6,7 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-const db = mysql.createPool({
-  connectionLimit: 10,
+const db = mysql.createConnection({
   host: "sql6.freesqldatabase.com",
   user: "sql6679494",
   password: "KhWfPngaNK",
@@ -15,33 +14,11 @@ const db = mysql.createPool({
   port: 3306,
 });
 
-  // db.connect((err) => {
-  //   if (err) {
-  //     console.error('Error connecting to MySQL:', err);
-  //   } else {
-  //     console.log('Connected to MySQL database');
-  //   }
-  // });
-  db.getConnection((err, connection) => {
+  db.connect((err) => {
     if (err) {
-      console.error('Error getting connection from pool: ', err);
-      // Handle the error appropriately
+      console.error('Error connecting to MySQL:', err);
     } else {
-      // Check if the connection is still alive
-      if (connection._closed) {
-        connection.connect((connectErr) => {
-          if (connectErr) {
-            console.error('Error reopening connection: ', connectErr);
-            // Handle the error appropriately
-          } else {
-            console.log('Connection reopened');
-          }
-        });
-      }
-      connection.query('SELECT * FROM statistics', (queryErr, results) => {
-        // Handle query results or errors
-        connection.release(); // Release the connection back to the pool
-      });
+      console.log('Connected to MySQL database');
     }
   });
   
@@ -51,7 +28,6 @@ app.listen(port, () => {
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
 
 // Display current week leaderboard (Top 200)
 app.get('/leaderboard/current', (req, res) => {
