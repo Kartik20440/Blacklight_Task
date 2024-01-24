@@ -6,13 +6,21 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+// const db = mysql.createConnection({
+  //   host: "a0m.h.filess.io",
+  //   user: "BlacklistTask_timepiano",
+  //   password: "89328c7e6160f3c20e50ad2dafe00b45ea55aa3c",
+  //   database: "BlacklistTask_timepiano",
+  //   port: 3307,
+  // });
+
 const db = mysql.createConnection({
-    host: "a0m.h.filess.io",
-    user: "BlacklistTask_timepiano",
-    password: "89328c7e6160f3c20e50ad2dafe00b45ea55aa3c",
-    database: "BlacklistTask_timepiano",
-    port: 3307,
-  });
+  host: "sql6.freesqldatabase.com",
+  user: "sql6679494",
+  password: "KhWfPngaNK",
+  database: "sql6679494",
+  port: 3306,
+});
 
   db.connect((err) => {
     if (err) {
@@ -31,11 +39,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Display current week leaderboard (Top 200)
 app.get('/leaderboard/current', (req, res) => {
-    const startOfWeek = moment().startOf('week').format('YYYY-MM-DD HH:mm:ss');
-    const endOfWeek = moment().endOf('week').format('YYYY-MM-DD HH:mm:ss');
+    const firstDay = moment().startOf('week').format('YYYY-MM-DD HH:mm:ss');
+    const lastDay = moment().endOf('week').format('YYYY-MM-DD HH:mm:ss');
     const query = `SELECT * FROM statistics WHERE timestamp BETWEEN ? AND ? ORDER BY score DESC LIMIT 200`;
   
-    db.query(query, [startOfWeek, endOfWeek], (err, results) => {
+    db.query(query, [firstDay, lastDay], (err, results) => {
       if(err){
         console.error('Error querying the database:', err);
         res.status(500).send('Internal Server Error');
@@ -93,3 +101,7 @@ app.get('/user-rank/:userId', (req, res) => {
 // http://localhost:3000/leaderboard/current
 // http://localhost:3000/leaderboard/last-week/ES
 // http://localhost:3000/user-rank/aaal
+
+// https://blacklight-leaderboard.onrender.com/leaderboard/current
+// https://blacklight-leaderboard.onrender.com/leaderboard/last-week/ES
+// https://blacklight-leaderboard.onrender.com/user-rank/aaal
