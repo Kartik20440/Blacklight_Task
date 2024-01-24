@@ -35,10 +35,11 @@ app.get('/leaderboard/current', (req, res) => {
     const query = `SELECT * FROM statistics WHERE timestamp BETWEEN ? AND ? ORDER BY score DESC LIMIT 200`;
   
     db.query(query, [startOfWeek, endOfWeek], (err, results) => {
-      if (err) {
+      if(err){
         console.error('Error querying the database:', err);
         res.status(500).send('Internal Server Error');
-      } else {
+      } 
+      else{
         res.render('currentLeaderboard', { users: results });
       }
     });
@@ -52,11 +53,11 @@ const endOfLastWeek = moment().subtract(1, 'weeks').endOf('week').format('YYYY-M
 const query = `SELECT * FROM statistics WHERE country = ? AND timestamp BETWEEN ? AND ? ORDER BY score DESC LIMIT 200`;
 
 db.query(query, [country, startOfLastWeek, endOfLastWeek], (err, results) => {
-    if (err) {
+    if (err){
     console.error('Error querying the database:', err);
     res.status(500).send('Internal Server Error');
-    } else {
-      // res.json(results);
+    } 
+    else {
       res.render('countryLeaderboard', { users: results });
     }
 });
@@ -75,12 +76,14 @@ app.get('/user-rank/:userId', (req, res) => {
     ORDER BY Score DESC`;
 
     db.query(query, [userId], (err, results) => {
-      if (err) {
+      if(err){
         console.error('Error querying the database:', err);
         res.status(500).send('Internal Server Error');
-      } else if (results.length == 0) {
-        res.status(404).send('User not found');
-      } else {
+      } 
+      else if(results.length == 0){
+        res.status(404).send('User ID not found');
+      } 
+      else{
         res.render('userRank', { users: results });
       }
     });
