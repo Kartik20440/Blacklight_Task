@@ -7,10 +7,11 @@ const app = express();
 const port = 3000;
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'mysqlpassword',
-    database: 'player_stats',
+    host: "a0m.h.filess.io",
+    user: "BlacklistTask_timepiano",
+    password: "89328c7e6160f3c20e50ad2dafe00b45ea55aa3c",
+    database: "BlacklistTask_timepiano",
+    port: 3307,
   });
 
   db.connect((err) => {
