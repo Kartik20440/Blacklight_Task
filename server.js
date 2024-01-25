@@ -9,7 +9,7 @@ const port = 3000;
 const fs = require('fs');
 
 // Read the config.json file
-const configFile = fs.readFileSync('config.json');
+const configFile = fs.readFileSync('views/config.json');
 const configData = JSON.parse(configFile);
 
 // Access MySQL configuration details
