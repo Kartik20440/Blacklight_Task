@@ -6,12 +6,26 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
+const fs = require('fs');
+
+// Read the config.json file
+const configFile = fs.readFileSync('config.json');
+const configData = JSON.parse(configFile);
+
+// Access MySQL configuration details
+const mysqlConfig = configData.mysql || {};
+const mysqlHost = mysqlConfig.host || '';
+const mysqlUser = mysqlConfig.user || '';
+const mysqlPassword = mysqlConfig.password || '';
+const mysqlDatabase = mysqlConfig.database || '';
+
+// Create a MySQL pool
 const db = mysql.createPool({
   connectionLimit: 10,
-  host: "sql6.freesqldatabase.com",
-  user: "sql6679494",
-  password: "KhWfPngaNK",
-  database: "sql6679494",
+  host: mysqlHost,
+  user: mysqlUser,
+  password: mysqlPassword,
+  database: mysqlDatabase,
   port: 3306,
 });
 
@@ -47,6 +61,7 @@ const db = mysql.createPool({
   
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+    
 });
 
 app.set('view engine', 'ejs');
